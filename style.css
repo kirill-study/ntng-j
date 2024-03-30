@@ -1,0 +1,146 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+/* Adjust the position of buttons to the right corner */
+#bottom-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px; /* Adjust as needed */
+    width: auto; /* Adjust as needed */
+    text-align: right; /* Align buttons to the right */
+}
+
+/* Move the "See-Hear-Feel-Think-Part" text to the left corner */
+.instruction {
+    position: fixed;
+    top: 30px;
+    left: 5px; /* Adjust as needed */
+    margin-top: 20px; /* Adjust as needed */
+    margin-left: 20px; /* Adjust as needed */
+    text-align: left; /* Align text to the left */
+}
+
+
+#bottom-container > p {
+margin: 5px
+}
+#endButton {
+}
+button {
+margin-bottom: 10px;
+}
+/*.instruction, #keypressInstruction {
+/*    padding-top: -5px; /* Adjust as needed */
+/*    padding-bottom: -5px; /* Adjust as needed */
+/*    margin-top: -5px; /* Adjust as needed */
+/*    margin-bottom: -5px; /* Adjust as needed */
+/*} */
+
+h1 {
+font-size: 16px; /* Adjust as needed */
+font-weight: bold;
+margin: 10px; /* Adjust as needed */
+position: fixed;
+top: 0;
+left: 0;
+}
+
+#barChartContainer > div:before {
+content: '\2022'; /* Bullet character */
+margin-right: 5px;
+margin-left: 5px;
+
+}
+#barChartContainer > div {
+margin-top: 10px;
+font-size: 20px;
+text-align: left;
+}
+
+#flags {
+position: fixed;
+top: 0;
+right: 0;
+}
+#writing{
+color: grey;
+margin: 40px; /* Adjust as needed */
+top: 50px;
+text-align: center;
+}
+.keypressInstruction {
+
+color: grey;
+text-align: center;
+
+}
+h1 {
+}
+#timer {
+    font-size: 115px;
+    margin-top: 20px;
+}
+#subTimer {
+    font-size: 24px;
+}
+#counters {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+#barChartContainer {
+    margin-top: 20px;
+    text-align: center;
+    width: 55%;
+}
+#barChart {
+    margin-bottom: 35px;
+}
+#counterList {
+    margin-left: 50px;
+    display: none;
+}
+.counter-wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+.counter-label {
+    margin-right: 5px;
+}
+.counter-rectangle {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+.button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #333;
+    border: 2px solid #fff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+.button:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+.button:hover {
+    background-color: #555;
+}
+.button:active {
+    transform: translateY(2px);
+}
+.instruction {
+    margin-top: 20px;
+}
+.text-display {
+    margin-top: 20px;
+    text-align: left;
+}
