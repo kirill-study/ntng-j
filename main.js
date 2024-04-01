@@ -1,4 +1,4 @@
-// Translation data
+/* #region  translation */
 const translations = {
   en: {
     headline: 'Noting Vipassana Meditation: The Game',
@@ -37,7 +37,7 @@ const translations = {
 }
 let lang = 'en'
 // Function to translate the page
-function translatePage (language) {
+function translatePage(language) {
   // Translate elements with data-translate attribute
   const elements = document.querySelectorAll('[data-translate]')
   elements.forEach(element => {
@@ -48,12 +48,14 @@ function translatePage (language) {
 
   updateBarChart()
 }
+/* #endregion */
 
+/* #region  sessions */
 document.getElementById('sessionHistoryButton').addEventListener('click', function () {
   window.location.href = 'session-history.html' // Change 'session-history.html' to the actual URL of your session history page
 })
 
-function endSession () {
+function endSession() {
   clearInterval(timerInterval)
   timerStarted = false
   document.getElementById('startPauseButton').textContent = 'Start Timer'
@@ -64,7 +66,7 @@ function endSession () {
 }
 
 // Function to save session data to localStorage
-function saveSession () {
+function saveSession() {
   const sessionData = {
     startTime,
     pausedTime,
@@ -75,7 +77,7 @@ function saveSession () {
 }
 
 // Function to load session data from localStorage if available
-function loadSession () {
+function loadSession() {
   const sessionData = JSON.parse(localStorage.getItem('sessionData'))
   if (sessionData) {
     startTime = sessionData.startTime || 0
@@ -89,6 +91,8 @@ function loadSession () {
   }
 }
 
+/* #endregion */
+
 let textInputMode = false // Variable to track whether the user is in text input mode
 let textInput = '' // Variable to store the text input by the user
 let lastInput = '' // Variable to store the last entered text
@@ -101,13 +105,13 @@ document.addEventListener('keydown', function (event) {
   handleTextInput(key)
 })
 
-function handleCounterUpdate (key) {
-      // Store the last pressed button if user is not in text input mode and it's one of the counters
-      if (!textInputMode && (key === 'h' || key === 's' || key === 'f' || key === 't' || key === 'p' || key === 'd' || key === 'с' || key === 'в' || key === 'ч' || key === 'д' || key === 'л' || key === 'о')) {
-        lastCounterPressed = key;
-    }
+function handleCounterUpdate(key) {
+  // Store the last pressed button if user is not in text input mode and it's one of the counters
+  if (!textInputMode && (key === 'h' || key === 's' || key === 'f' || key === 't' || key === 'p' || key === 'd' || key === 'с' || key === 'в' || key === 'ч' || key === 'д' || key === 'л' || key === 'о')) {
+    lastCounterPressed = key;
+  }
 
-    if (lang == 'en') {
+  if (lang == 'en') {
     if (!textInputMode && (key === 'h' || key === 's' || key === 'f' || key === 't' || key === 'p' || key === 'd')) {
       updateCounter(key)
     }
@@ -118,13 +122,13 @@ function handleCounterUpdate (key) {
   }
 }
 
-function handleStartPause (key) {
+function handleStartPause(key) {
   if (key === ' ') {
     startPauseTimer()
   }
 }
 
-function handleTextInput (key) {
+function handleTextInput(key) {
   if (textInputMode) {
     if (key === 'backspace') {
       handleBackspace()
@@ -140,7 +144,7 @@ function handleTextInput (key) {
   }
 }
 
-function handleTextInputModeExit (key) {
+function handleTextInputModeExit(key) {
   if (key === 'enter') {
     saveTextInput()
   } else if (key === 'escape') {
@@ -148,7 +152,7 @@ function handleTextInputModeExit (key) {
   }
 }
 
-function saveTextInput () {
+function saveTextInput() {
   lastInput = textInput // Store the last entered text before clearing the input
   textInput = '' // Reset the text input
   updateTextDisplay(lastInput) // Update the display with the last entered text (excluding the 'w' or 'п' key)
@@ -157,7 +161,7 @@ function saveTextInput () {
   textInputMode = false
 }
 
-function cancelTextInput () {
+function cancelTextInput() {
   lastInput = textInput // Store the last entered text before clearing the input
   textInput = '' // Reset the text input
   document.getElementById('textInput').textContent = '' // Clear the input field content
@@ -165,13 +169,13 @@ function cancelTextInput () {
   textInputMode = false
 }
 
-function handleBackspace () {
+function handleBackspace() {
   // Remove the last character from the text input
   textInput = textInput.slice(0, -1)
   console.log(textInput) // Log the current textInput after backspace
 }
 
-function handleArrowKey (key) {
+function handleArrowKey(key) {
   // Handle arrow key navigation within the text input field
   event.preventDefault() // Prevent default behavior of arrow keys
   const textInputField = document.getElementById('textInput')
@@ -184,20 +188,20 @@ function handleArrowKey (key) {
   }
 }
 
-function handleTextInputCharacter (key) {
+function handleTextInputCharacter(key) {
   // Capture keyboard input in text input mode
   textInput += event.key
   console.log(textInput) // Log the current textInput after each keypress
 }
 
-function handleTextInputModeActivation (key) {
+function handleTextInputModeActivation(key) {
   if (key === 'w' || key === 'п') {
     event.preventDefault() // Prevent default behavior of W or П key
     document.getElementById('writing').style.display = 'none'
-    
+
     // If the last pressed button-counter was P or Л, add the bolded "part:" or "субличность" prefix
     if (['p', 'л'].includes(lastCounterPressed)) {
-        textInput = `${lastCounterPressed === 'p' ? 'part:' : 'субличность:'} ${textInput}`;
+      textInput = `${lastCounterPressed === 'p' ? 'part:' : 'субличность:'} ${textInput}`;
     }
     // Enable text input mode
     textInputMode = true
@@ -207,7 +211,7 @@ function handleTextInputModeActivation (key) {
 }
 
 // Update the text display with the last entered text
-function updateTextDisplay (input) {
+function updateTextDisplay(input) {
   const textDisplay = document.createElement('div')
   textDisplay.textContent = input
   document.getElementById('barChartContainer').appendChild(textDisplay) // Append after the bar chart
@@ -229,7 +233,7 @@ let longestTimeBetweenPresses = 0 // Variable to store the longest time between 
 let lastInstructionTime = 0 // Variable to store the time of the last instruction
 let isPaused = false // Variable to track if the timer is paused
 
-function startPauseTimer () {
+function startPauseTimer() {
   if (!timerStarted) {
     startTimer()
     // speak("Let's start noting!");
@@ -243,7 +247,7 @@ function startPauseTimer () {
   }
 }
 
-function startTimer () {
+function startTimer() {
   startTime = Date.now() - pausedTime
   timerInterval = setInterval(updateTimer, 1000)
   timerStarted = true
@@ -251,7 +255,7 @@ function startTimer () {
   isPaused = false // Reset the pause state
 }
 
-function pauseTimer () {
+function pauseTimer() {
   clearInterval(timerInterval)
   pausedTime = Date.now() - startTime
   timerStarted = false
@@ -259,11 +263,11 @@ function pauseTimer () {
   document.getElementById('startPauseButton').textContent = 'Resume Timer'
 }
 
-function resumeTimer () {
+function resumeTimer() {
   startTimer()
 }
 
-function updateTimer () {
+function updateTimer() {
   const elapsedTime = Date.now() - startTime
   const formattedTime = formatTime(elapsedTime)
   document.getElementById('timer').textContent = formattedTime
@@ -291,7 +295,7 @@ function updateTimer () {
   }
 }
 
-function formatTime (milliseconds, shortFormat = false) {
+function formatTime(milliseconds, shortFormat = false) {
   const totalSeconds = Math.floor(milliseconds / 1000)
   const hours = Math.floor(totalSeconds / 3600)
   const minutes = Math.floor((totalSeconds % 3600) / 60)
@@ -304,12 +308,12 @@ function formatTime (milliseconds, shortFormat = false) {
   return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
 }
 
-function speak (message) {
+function speak(message) {
   const utterance = new SpeechSynthesisUtterance(message)
   speechSynthesis.speak(utterance)
 }
 
-function updateCounter (key) {
+function updateCounter(key) {
   const currentTime = Date.now()
   const timeSinceLastKeyPress = (currentTime - lastKeyPressTime) / 1000 // Calculate time since last key press in seconds
   if (timerStarted && timeSinceLastKeyPress > longestTimeBetweenPresses) {
@@ -337,7 +341,7 @@ function updateCounter (key) {
       case 'd':
         distractedCount++
         // speak("Got distracted? You are doing great");
-        speak('aaaaaa')
+        //speak('aaaaaa')
         break
       default:
         break
@@ -362,7 +366,7 @@ function updateCounter (key) {
       case 'о':
         distractedCount++
         // speak("Got distracted? You are doing great");
-        speak('aaaaaa')
+        //speak('aaaaaa')
         break
       default:
         break
@@ -376,7 +380,7 @@ function updateCounter (key) {
   updateCounterDisplay()
 }
 
-function updateCounterDisplay () {
+function updateCounterDisplay() {
   document.getElementById('heardCounter').textContent = heardCount
   document.getElementById('seenCounter').textContent = seenCount
   document.getElementById('feelCounter').textContent = feelCount
@@ -385,7 +389,7 @@ function updateCounterDisplay () {
   document.getElementById('distractedCounter').textContent = distractedCount
 }
 
-function updateBarChart () {
+function updateBarChart() {
   const counterData = [seenCount, heardCount, feelCount, thoughtCount, partCount, distractedCount]
   let labels = ['Seen', 'Heard', 'Felt', 'Thought', '(noticed) Part', '(got) Distracted']
 
