@@ -169,14 +169,14 @@ h1 {
 }
 #textInput{
     position:fixed;
-    bottom: 47px;
+    bottom: 7px;
     left:367px;
     color: rgb(103, 103, 103);
 }
 #texts{
     position: fixed;
     color: rgb(48, 48, 48);
-    bottom: 68px;
+    bottom: 28px;
     left: 350px;
     text-align: left;
 }
