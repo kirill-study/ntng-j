@@ -35,7 +35,7 @@ const translations = {
     keypressInstruction: 'Нажимайте В (вижу) или Ч (чувствую) и т.п., когда замечаете, что внимание сейчас там'
   }
 }
-let lang = 'en'
+let lang = 'ru'
 // Function to translate the page
 function translatePage(language) {
   // Translate elements with data-translate attribute
@@ -214,7 +214,7 @@ function handleTextInputModeActivation(key) {
 function updateTextDisplay(input) {
   const textDisplay = document.createElement('div')
   textDisplay.textContent = input
-  document.getElementById('barChartContainer').appendChild(textDisplay) // Append after the bar chart
+  document.getElementById('texts').appendChild(textDisplay) // Append after the bar chart
 }
 let lastCounterPressed = '';
 let startTime
@@ -251,7 +251,7 @@ function startTimer() {
   startTime = Date.now() - pausedTime
   timerInterval = setInterval(updateTimer, 1000)
   timerStarted = true
-  document.getElementById('startPauseButton').textContent = 'Pause Timer'
+  document.getElementById('startPauseButton').textContent = 'Pause'
   isPaused = false // Reset the pause state
 }
 
@@ -260,7 +260,7 @@ function pauseTimer() {
   pausedTime = Date.now() - startTime
   timerStarted = false
   isPaused = true
-  document.getElementById('startPauseButton').textContent = 'Resume Timer'
+  document.getElementById('startPauseButton').textContent = 'Resume'
 }
 
 function resumeTimer() {
@@ -277,7 +277,7 @@ function updateTimer() {
   if (lang == 'en') {
     document.getElementById('subTimer').textContent = `Time since last keypress: ${formatTime(timeSinceLastKeyPress * 1000, true)}`
   } else if (lang == 'ru') {
-    document.getElementById('subTimer').textContent = `С последнего нажатия клавиши: ${formatTime(timeSinceLastKeyPress * 1000, true)}`
+    document.getElementById('subTimer').textContent = `last: ${formatTime(timeSinceLastKeyPress * 1000, true)}`
   }
 
   // Check if more than 60 seconds have passed since the last key press, if so, increment distracted counter
@@ -394,7 +394,7 @@ function updateBarChart() {
   let labels = ['Seen', 'Heard', 'Felt', 'Thought', '(noticed) Part', '(got) Distracted']
 
   if (lang == 'ru') {
-    labels = ['Видел', 'Слышал', 'Чувствовал', 'Думал', 'субЛичность', 'Отвлекался']
+    labels = ['Вижу', 'Слышу', 'Чувствую', 'Думаю', 'субЛичность', 'Отвлекся']
   }
 
   // Update the chart data
@@ -411,13 +411,14 @@ function updateBarChart() {
         datasets: [{
           data: counterData,
           backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(153, 102, 255)',
-            'black' // Changed color to black
+            'rgb(255, 99, 132, 0.3)',
+            'rgb(54, 162, 235, 0.3)',
+            'rgb(255, 205, 86, 0.3)',
+            'rgb(75, 192, 192, 0.3)',
+            'rgb(153, 102, 255, 0.3)',
+            'darkblue' // Changed color to black
           ],
+          
           hoverOffset: 4
         }]
       },
