@@ -109,6 +109,22 @@ function handleCounterUpdate(key) {
   // Store the last pressed button if user is not in text input mode and it's one of the counters
   if (!textInputMode && (key === 'h' || key === 's' || key === 'f' || key === 't' || key === 'p' || key === 'd' || key === 'с' || key === 'в' || key === 'ч' || key === 'д' || key === 'л' || key === 'о')) {
     lastCounterPressed = key;
+    
+    const progressContainer = document.getElementById("progress-container");
+    const progressHalf = document.getElementById("progress-half");
+  
+    // Reset animation
+    progressHalf.style.animation = "none";
+    void progressHalf.offsetWidth; // Trigger reflow to restart animation
+    progressHalf.style.animation = "progress-half 5s linear forwards";
+  
+    // Show the progress bar
+    progressContainer.style.display = "flex";
+  
+    // Hide the progress bar after 5 seconds
+    setTimeout(() => {
+      progressContainer.style.display = "none";
+    }, 5000);
   }
 
   if (lang == 'en') {
@@ -120,7 +136,12 @@ function handleCounterUpdate(key) {
       updateCounter(key)
     }
   }
-}
+
+
+
+  }
+
+
 
 function handleStartPause(key) {
   if (key === ' ') {
@@ -285,13 +306,13 @@ function updateTimer() {
     distractedCount++
     // speak("Gently notice where your attention is right now. Looks like you got distracted. It's inevitable, let's get back to it.");
     updateCounterDisplay()
-    lastKeyPressTime = Date.now() // Update last key press time
+    //lastKeyPressTime = Date.now() // Update last key press time
   }
 
   // Check if it's been more than 5 minutes since the last instruction, if so, provide another instruction
   if (Date.now() - lastInstructionTime > 300000 && !isPaused) {
     // speak("Gently notice where your attention is right now.");
-    lastInstructionTime = Date.now()
+    //lastInstructionTime = Date.now()
   }
 }
 
