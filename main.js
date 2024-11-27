@@ -99,7 +99,7 @@ let lastInput = '' // Variable to store the last entered text
 
 document.addEventListener('keydown', function (event) {
   const key = event.key.toLowerCase()
-
+  //console.log(key)
   handleCounterUpdate(key)
   handleStartPause(key)
   handleTextInput(key)
@@ -107,24 +107,29 @@ document.addEventListener('keydown', function (event) {
 
 function handleCounterUpdate(key) {
   // Store the last pressed button if user is not in text input mode and it's one of the counters
-  if (!textInputMode && (key === 'h' || key === 's' || key === 'f' || key === 't' || key === 'p' || key === 'd' || key === 'с' || key === 'в' || key === 'ч' || key === 'д' || key === 'л' || key === 'о')) {
+  if (!textInputMode && (key === 'h' || key === 's' || key === 'f' || key === 't' || key === 'p' || key === 'd' || key === 'с' || key === 'в' || key === 'ч' || key === 'д' || key === 'л' || key === 'о' || key === 'м' || key === 'ы' )) {
     lastCounterPressed = key;
-    
+
     const progressContainer = document.getElementById("progress-container");
     const progressHalf = document.getElementById("progress-half");
   
     // Reset animation
     progressHalf.style.animation = "none";
     void progressHalf.offsetWidth; // Trigger reflow to restart animation
-    progressHalf.style.animation = "progress-half 5s linear forwards";
+    progressHalf.style.animation = "progress-half 8s linear forwards";
   
     // Show the progress bar
     progressContainer.style.display = "flex";
   
+
+
+    // Show the progress bar with fade-in effect
+    progressContainer.classList.add("visible");
+    clearTimeout(ProgressBarTimeOut)
     // Hide the progress bar after 5 seconds
-    setTimeout(() => {
+    const ProgressBarTimeOut = setTimeout(() => {
       progressContainer.style.display = "none";
-    }, 5000);
+    }, 8000);
   }
 
   if (lang == 'en') {
@@ -132,7 +137,7 @@ function handleCounterUpdate(key) {
       updateCounter(key)
     }
   } else if (lang == 'ru') {
-    if (!textInputMode && (key === 'с' || key === 'в' || key === 'ч' || key === 'д' || key === 'л' || key === 'о')) {
+    if (!textInputMode && (key === 'с' || key === 'в' || key === 'ч' || key === 'д' || key === 'л' || key === 'о' || key === 'м' || key === 'ы' )) {
       updateCounter(key)
     }
   }
@@ -145,6 +150,7 @@ function handleCounterUpdate(key) {
 
 function handleStartPause(key) {
   if (key === ' ') {
+    console.log("in")
     startPauseTimer()
   }
 }
@@ -246,6 +252,10 @@ let seenCount = 0
 let feelCount = 0
 let thoughtCount = 0
 let partCount = 0
+
+let breathCount = 0
+let mettaCount = 0
+
 let distractedCount = 0 // New counter for distractions
 let timerStarted = false
 const timerPaused = false
@@ -274,6 +284,34 @@ function startTimer() {
   timerStarted = true
   document.getElementById('startPauseButton').textContent = 'Pause'
   isPaused = false // Reset the pause state
+
+          // Total duration of the timer in milliseconds (5 minutes)
+          const totalDuration = 5 * 60 * 1000;
+
+          // Reference to the timer bar
+          const timerBar = document.getElementById('timerBar');
+  
+          // Start time
+  
+          // Animation function
+          function animate() {
+              const elapsedTime = Date.now() - startTime;
+              const remainingTime = Math.max(totalDuration - elapsedTime, 0);
+  
+              // Calculate the percentage remaining
+              const percentageRemaining = (remainingTime / totalDuration) * 100;
+  
+              // Update the width of the timer bar
+              timerBar.style.width = percentageRemaining + '%';
+  
+              // If time is remaining, continue animating
+              if (remainingTime > 0) {
+                  requestAnimationFrame(animate);
+              }
+          }
+  
+          // Start the animation
+          animate();
 }
 
 function pauseTimer() {
@@ -288,7 +326,12 @@ function resumeTimer() {
   startTimer()
 }
 
+let endedOnce = false;
+let distractedRN = false
 function updateTimer() {
+  console.log(distractedRN)
+  distractedRN = false
+  console.log(distractedRN)
   const elapsedTime = Date.now() - startTime
   const formattedTime = formatTime(elapsedTime)
   document.getElementById('timer').textContent = formattedTime
@@ -302,8 +345,9 @@ function updateTimer() {
   }
 
   // Check if more than 60 seconds have passed since the last key press, if so, increment distracted counter
-  if (timeSinceLastKeyPress > 60 && !isPaused) {
+  if (timeSinceLastKeyPress > 60 && !isPaused && !distractedRN) {
     distractedCount++
+    distractedRN = true
     // speak("Gently notice where your attention is right now. Looks like you got distracted. It's inevitable, let's get back to it.");
     updateCounterDisplay()
     //lastKeyPressTime = Date.now() // Update last key press time
@@ -313,6 +357,14 @@ function updateTimer() {
   if (Date.now() - lastInstructionTime > 300000 && !isPaused) {
     // speak("Gently notice where your attention is right now.");
     //lastInstructionTime = Date.now()
+  }
+  if (elapsedTime >= 5*1000*60) {
+    if (!endedOnce){
+      startPauseTimer()
+      endedOnce = true
+      alert("session ended!")
+    }
+    
   }
 }
 
@@ -384,6 +436,12 @@ function updateCounter(key) {
       case 'л':
         partCount++
         break
+      case 'м':
+        mettaCount++
+        break
+      case 'ы':
+        breathCount++
+        break
       case 'о':
         distractedCount++
         // speak("Got distracted? You are doing great");
@@ -394,7 +452,7 @@ function updateCounter(key) {
     }
   }
 
-  if (!timerStarted && (heardCount > 0 || seenCount > 0 || feelCount > 0 || thoughtCount > 0 || partCount > 0 || distractedCount > 0)) {
+  if (!timerStarted && (heardCount > 0 || seenCount > 0 || feelCount > 0 || thoughtCount > 0 || partCount > 0 || distractedCount > 0 || mettaCount > 0 || breathCount > 0)) {
     startTimer()
   }
   updateBarChart()
@@ -411,11 +469,11 @@ function updateCounterDisplay() {
 }
 
 function updateBarChart() {
-  const counterData = [seenCount, heardCount, feelCount, thoughtCount, partCount, distractedCount]
+  const counterData = [seenCount, heardCount, feelCount, thoughtCount, partCount, mettaCount, breathCount, distractedCount]
   let labels = ['Seen', 'Heard', 'Felt', 'Thought', '(noticed) Part', '(got) Distracted']
 
   if (lang == 'ru') {
-    labels = ['Вижу', 'Слышу', 'Чувствую', 'Думаю', 'субЛичность', 'Отвлекся']
+    labels = ['Вижу', 'Слышу', 'Чувствую', 'Думаю', 'субЛичность', 'Метта', 'дЫхание', 'Отвлекся']
   }
 
   // Update the chart data
@@ -462,7 +520,7 @@ document.addEventListener('keydown', function (event) {
       updateCounter(key)
     }
   } else if (lang == 'ru') {
-    if (!textInputMode && (key === 'с' || key === 'в' || key === 'ч' || key === 'д' || key === 'л' || key === 'о')) {
+    if (!textInputMode && (key === 'с' || key === 'в' || key === 'ч' || key === 'д' || key === 'л' || key === 'м' || key === 'ы' || key === 'о')) {
       updateCounter(key)
     }
   }
