@@ -100,7 +100,7 @@ let lastInput = '' // Variable to store the last entered text
 document.addEventListener('keydown', function (event) {
   const key = event.key.toLowerCase()
   handleCounterUpdate(key)
-  handleStartPause(key)
+  //handleStartPause(key)
   handleTextInput(key)
 })
 
@@ -125,7 +125,7 @@ function handleCounterUpdate(key) {
     // Show the progress bar with fade-in effect
     progressContainer.classList.add("visible");
     clearTimeout(ProgressBarTimeOut)
-    // Hide the progress bar after 5 seconds
+    // Hide the progress bar after 8 seconds
     const ProgressBarTimeOut = setTimeout(() => {
       progressContainer.style.display = "none";
     }, 8000);
@@ -147,11 +147,11 @@ function handleCounterUpdate(key) {
 
 
 
-function handleStartPause(key) {
-  if (key === ' ') {
-    startPauseTimer()
-  }
-}
+//function handleStartPause(key) {
+//  if (key === ' ') {
+//    startPauseTimer()
+//  }
+//}
 
 function handleTextInput(key) {
   if (textInputMode) {
@@ -528,7 +528,7 @@ document.addEventListener('keydown', function (event) {
     }
   }
   if (key === ' ') {
-    //handled in global function
+    startPauseTimer()
   }
 })
 
