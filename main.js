@@ -493,11 +493,11 @@ function updateBarChart() {
         datasets: [{
           data: counterData,
           backgroundColor: [
-            'rgb(255, 99, 132, 0.3)',
-            'rgb(54, 162, 235, 0.3)',
-            'rgb(255, 205, 86, 0.3)',
-            'rgb(75, 192, 192, 0.3)',
-            'rgb(153, 102, 255, 0.3)',
+            'rgb(255, 99, 132, 0.8)',
+            'rgb(54, 162, 235, 0.8)',
+            'rgb(255, 205, 86, 0.8)',
+            'rgb(75, 192, 192, 0.8)',
+            'rgb(153, 102, 255, 0.8)',
             'darkblue' // Changed color to black
           ],
           
