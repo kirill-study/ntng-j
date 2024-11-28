@@ -227,9 +227,9 @@ function handleTextInputModeActivation(key) {
     document.getElementById('writing').style.display = 'none'
 
     // If the last pressed button-counter was P or Л, add the bolded "part:" or "субличность" prefix
-    if (['p', 'л'].includes(lastCounterPressed)) {
-      textInput = `${lastCounterPressed === 'p' ? 'part:' : 'субличность:'} ${textInput}`;
-    }
+    //if (['p', 'л'].includes(lastCounterPressed)) {
+    //  textInput = `${lastCounterPressed === 'p' ? 'part:' : 'субличность:'} ${textInput}`;
+    //}
     // Enable text input mode
     textInputMode = true
     document.getElementById('textInput').style.display = 'block' // Show the text input display
@@ -241,7 +241,12 @@ function handleTextInputModeActivation(key) {
 function updateTextDisplay(input) {
   const textDisplay = document.createElement('div')
   textDisplay.textContent = input
+  if (['p', 'л'].includes(lastCounterPressed)) {
+    document.getElementById('subTexts').appendChild(textDisplay)
+  }
+  else {
   document.getElementById('texts').appendChild(textDisplay) // Append after the bar chart
+  }
 }
 let lastCounterPressed = '';
 let startTime
