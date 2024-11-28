@@ -93,8 +93,8 @@ h1 {
 }
 #timer {
     position: fixed;
-    bottom: 6px;
-    right: 90px;
+    bottom: 196px;
+    right: 138px;
     font-family: 'Iosevka', 'Courier New', Courier, monospace;
     font-size: 47px;
     margin-top: 15px;
@@ -102,8 +102,8 @@ h1 {
 }
 #subCont {
     position: fixed;
-    bottom: 12px;
-    right: 30px;
+    bottom: 202px;
+    right: 78px;
     font-size: 22px;
     font-weight: bold;
     color:#1e1e1e
@@ -121,7 +121,9 @@ h1 {
 }
 #counters {
     position: fixed;
+    width: 350px;
     bottom: -20px;
+    right: 5px;
     margin-top: 20px;
     justify-content: center;
 }
@@ -191,7 +193,7 @@ h1 {
     position: fixed;
     color: rgb(48, 48, 48);
     bottom: 5px;
-    left: 370px;
+    left: 25px;
     text-align: left;
     width: 265px;
    height: 254px;
@@ -224,7 +226,7 @@ h1 > span {
     position: fixed;
     color: rgb(48, 48, 48);
     bottom: 32px;
-    right: 1px;
+    right: 300px;
     text-align: left;
     width: 550px;
    height: 227px;
