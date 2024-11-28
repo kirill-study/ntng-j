@@ -8,8 +8,7 @@ body {
 #bottom-container {
     position: fixed;
     bottom: 15px;
-    right: 30px; /* Adjust as needed */
-    width: auto; /* Adjust as needed */
+    right: 220px; /* Adjust as needed */
     text-align: right; /* Align buttons to the right */
 }
 
@@ -33,7 +32,7 @@ margin: 5px
 
 }
 button {
-margin-bottom: 5px;
+margin-bottom: 0px;
 }
 /*.instruction, #keypressInstruction {
 /*    padding-top: -5px; /* Adjust as needed */
@@ -94,18 +93,29 @@ h1 {
 }
 #timer {
     position: fixed;
-    bottom: 95px;
-    right: 30px;
-
-    font-size: 45px;
+    bottom: 6px;
+    right: 90px;
+    font-family: 'Iosevka', 'Courier New', Courier, monospace;
+    font-size: 47px;
     margin-top: 15px;
     color:#1e1e1e
 }
-#subTimer {
+#subCont {
     position: fixed;
-    bottom: 70px;
-    right: 109px;
-    font-size: 20px;
+    bottom: 12px;
+    right: 30px;
+    font-size: 22px;
+    font-weight: bold;
+    color:#1e1e1e
+
+}
+
+#subTimer {
+    font-weight: normal;
+    
+    
+    font-family: 'Iosevka', 'Courier New', Courier, monospace;
+    font-size: 18px;
     color:#1e1e1e
 
 }
@@ -142,9 +152,10 @@ h1 {
     border-radius: 3px;
 }
 .button {
-    opacity: 0.7;
-    padding: 7px 12px;
-    font-size: 14px;
+    display: none;
+    opacity: 0.9;
+    padding: 1px 1px;
+    font-size: 8px;
     border-color: black;
     background-color: #181818;
     color:#585858;
@@ -179,18 +190,17 @@ h1 {
 #subTexts{
     position: fixed;
     color: rgb(48, 48, 48);
-    bottom: 125px;
-    right: 5px;
+    bottom: 55px;
+    right: 1px;
     text-align: left;
-    width: 199px;
-   height: 230px;
+    width: 203px;
+   height: 205px;
    overflow-y: scroll;
-font-size: 14px;
 }
 
 h2 {
 
-font-size: 14px; /* Adjust as needed */
+font-size: 15px; /* Adjust as needed */
 font-weight: bold;
 }
 #texts > h1 {
@@ -212,11 +222,11 @@ h2 > span {
 #texts{
     position: fixed;
     color: rgb(48, 48, 48);
-    bottom: 28px;
-    left: 350px;
+    bottom: 30px;
+    left: 370px;
     text-align: left;
     width: 630px;
-   height: 200px;
+   height: 227px;
    overflow-y: scroll;
 
 }

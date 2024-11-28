@@ -6,6 +6,8 @@
     <title>Noting Vipassana Meditation: The Game</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css">
+    <link href="https://iosevka-webfonts.github.io/iosevka/Iosevka.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
     <body>
         <div class="timer-bar-container">
@@ -18,8 +20,9 @@
             </div>
           </div>
           
-        <div id="timer">00:00:00</div>
-        <div id="subTimer" data-translate="subTimer">last: 00:00</div>
+        <div id="timer">00:00</div>
+        <div id="subCont">last:
+        <div id="subTimer" data-translate="subTimer">00:00</div></div>
     <div id="counters">
         <div id="barChartContainer">
             <p class="keypressInstruction" data-translate="keypressInstruction">Press "h" for hear, "s" for see, and so on, when you notice your attention doing it</p>
@@ -62,7 +65,7 @@
     </div>
     <div id="textInput" contenteditable="true" style="display: none;"></div>
         <div id="bottom-container">
-            <button class="button" id="startPauseButton" data-translate="startButton">Start</button>
+            <button class="button" id="startPauseButton" data-translate="startButton"><i class="material-icons">play_arrow</i></button>
             <button class="button" id="endButton" data-translate="endButton" disabled>End Session</button>
     <button class="button" id="sessionHistoryButton" disabled>Sessions History</button>
             <p class="instruction" data-translate="instruction">See-Hear-Feel-Think-Part</p>

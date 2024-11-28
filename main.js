@@ -99,7 +99,6 @@ let lastInput = '' // Variable to store the last entered text
 
 document.addEventListener('keydown', function (event) {
   const key = event.key.toLowerCase()
-  //console.log(key)
   handleCounterUpdate(key)
   handleStartPause(key)
   handleTextInput(key)
@@ -150,7 +149,6 @@ function handleCounterUpdate(key) {
 
 function handleStartPause(key) {
   if (key === ' ') {
-    console.log("in")
     startPauseTimer()
   }
 }
@@ -346,7 +344,7 @@ function updateTimer() {
   if (lang == 'en') {
     document.getElementById('subTimer').textContent = `Time since last keypress: ${formatTime(timeSinceLastKeyPress * 1000, true)}`
   } else if (lang == 'ru') {
-    document.getElementById('subTimer').textContent = `last: ${formatTime(timeSinceLastKeyPress * 1000, true)}`
+    document.getElementById('subTimer').textContent = `${formatTime(timeSinceLastKeyPress * 1000, true)}`
   }
 
   // Check if more than 60 seconds have passed since the last key press, if so, increment distracted counter
@@ -373,7 +371,7 @@ function updateTimer() {
   }
 }
 
-function formatTime(milliseconds, shortFormat = false) {
+function formatTime(milliseconds, shortFormat = true) {
   const totalSeconds = Math.floor(milliseconds / 1000)
   const hours = Math.floor(totalSeconds / 3600)
   const minutes = Math.floor((totalSeconds % 3600) / 60)
@@ -530,7 +528,7 @@ document.addEventListener('keydown', function (event) {
     }
   }
   if (key === ' ') {
-    startPauseTimer()
+    //handled in global function
   }
 })
 
