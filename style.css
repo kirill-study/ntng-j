@@ -54,13 +54,22 @@ margin-right: 5px;
 margin-left: 5px;
 
 }
+#subTexts > div {
+counter-increment: numbers +1;
+}
 
 #subTexts > div:before {
-    content: '\2022'; /* Bullet character */
+    content: counter(numbers)'.';
     margin-right: 5px;
     margin-left: 5px;
-    
     }
+
+    #subTexts > div:after {
+        content: '❤️'counter(love1)' 🔦'counter(feel1);
+        margin-right: 5px;
+        margin-left: 5px;
+        }
+
 #barChartContainer > div {
 margin-top: 10px;
 font-size: 20px;
@@ -199,6 +208,7 @@ h1 {
    height: 254px;
    overflow-y: scroll;
    font-size: 15px;
+   counter-reset: numbers 0;
 }
 
 h1 {

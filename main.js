@@ -153,6 +153,8 @@ function handleCounterUpdate(key) {
 //  }
 //}
 
+
+
 function handleTextInput(key) {
   if (textInputMode) {
     if (key === 'backspace') {
@@ -160,6 +162,7 @@ function handleTextInput(key) {
     } else if (['arrowleft', 'arrowright'].includes(key)) {
       handleArrowKey(key)
     } else if (key !== 'enter' && key !== 'escape' && key !== 'shift') {
+      //updateChildElements()
       handleTextInputCharacter(key)
     } else {
       handleTextInputModeExit(key)
