@@ -124,7 +124,7 @@ function handleCounterUpdate(key) {
 
     // Show the progress bar with fade-in effect
     progressContainer.classList.add("visible");
-    clearTimeout(ProgressBarTimeOut)
+    //clearTimeout(ProgressBarTimeOut)
     // Hide the progress bar after 8 seconds
     const ProgressBarTimeOut = setTimeout(() => {
       progressContainer.style.display = "none";
@@ -320,6 +320,7 @@ let seenCount = 0
 let feelCount = 0
 let thoughtCount = 0
 let partCount = 0
+let nmode = false;
 
 let breathCount = 0
 let mettaCount = 0
@@ -454,6 +455,23 @@ function speak(message) {
   speechSynthesis.speak(utterance)
 }
 
+// Function to add a number to the counter of a specific child and specific emoji
+function incrementCounter(childIndex, emojiIndex, numberToAdd) {
+  // Select the specific counter element inside the specified child and emoji
+  const counterElement = document.querySelector(
+    `#subTexts .child-wrapper:nth-child(${childIndex + 1}) .emoji-item.emoji-${emojiIndex} .counter`
+  );
+
+  // Check if the counter element exists to avoid errors
+  if (counterElement) {
+    // Get the current value, convert it to a number, add the numberToAdd, and update the element
+    let currentValue = parseInt(counterElement.textContent, 10) || 0; // Use || 0 if the value is NaN
+    counterElement.textContent = currentValue + numberToAdd;
+  } else {
+    console.error(`Counter for child ${childIndex} and emoji-${emojiIndex} not found.`);
+  }
+}
+
 function updateCounter(key) {
   const currentTime = Date.now()
   const timeSinceLastKeyPress = (currentTime - lastKeyPressTime) / 1000 // Calculate time since last key press in seconds
@@ -462,6 +480,10 @@ function updateCounter(key) {
     document.getElementById('longestTime').textContent = `Longest Time Between Presses: ${longestTimeBetweenPresses.toFixed(2)} seconds`
   }
   lastKeyPressTime = currentTime
+
+  const subTexts = document.getElementById('subTexts');
+
+  
   if (lang == 'en') {
     switch (key) {
       case 'h':
@@ -497,12 +519,33 @@ function updateCounter(key) {
         break
       case 'ч':
         feelCount++
+        console.log(nmode)
+        if (nmode != false) {
+          console.log(nmode)
+          //child[nmode].emoji-feel++
+          incrementCounter(+nmode,0,1)
+          nmode = false
+        }
         break
       case 'д':
         thoughtCount++
+
+        if (nmode != false) {
+          console.log(nmode)
+          //child[nmode].emoji-feel++
+          incrementCounter(+nmode,1,1)
+          nmode = false
+        }
         break
       case 'л':
         mettaCount++
+
+        if (nmode != false) {
+          console.log(nmode)
+          //child[nmode].emoji-feel++
+          incrementCounter(+nmode,2,1)
+          nmode = false
+        }
         break
       case 'ы':
         breathCount++
@@ -579,7 +622,9 @@ function updateBarChart() {
 
 document.addEventListener('keydown', function (event) {
   const key = event.key.toLowerCase()
-
+  const active = document.querySelector('.activeNumber');
+  if (active) active.classList.remove('activeNumber')
+console.log(key)
   if (lang == 'en') {
     if (!textInputMode && (key === 'h' || key === 's' || key === 'f' || key === 't' || key === 'p' || key === 'd')) {
       updateCounter(key)
@@ -588,6 +633,15 @@ document.addEventListener('keydown', function (event) {
     if (!textInputMode && (key === 'с' || key === 'в' || key === 'ч' || key === 'д' || key === 'л' || key === 'м' || key === 'ы' || key === 'о')) {
       updateCounter(key)
     }
+  
+    if (!textInputMode && (key >= 1 && key <= 9)) {
+      nmode = key
+      let childtext = document.querySelector(`#subTexts .child-wrapper:nth-child(${+nmode + 1}) .child-text`)
+      let emojicont = document.querySelector(`#subTexts .child-wrapper:nth-child(${+nmode + 1}) .emoji-container`)
+      childtext.classList.add("activeNumber")
+      emojicont.classList.add("activeNumber")
+    }
+    
   }
   if (!textInputMode && key === ' ') {
     startPauseTimer()

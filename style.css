@@ -63,11 +63,23 @@ margin-left: 5px;
     padding-left: 5px;
 }
 
+.activeNumber {
+    background: #89bfeed1;
+}
 
 .child-wrapper > .emoji-container {
     padding-top: 5px;
     padding-left: 5px;
 }
+
+.counter {
+    margin-left: -4px;
+    background-color: #C0C0C0;
+}
+.child-wrapper {
+    height: 27px;
+}
+
 
 /*
 
