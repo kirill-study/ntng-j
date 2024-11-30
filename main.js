@@ -218,10 +218,24 @@ function handleTextInputCharacter(key) {
   textInput += event.key
   console.log(textInput) // Log the current textInput after each keypress
 }
-
+let emotionBool = false
 function handleTextInputModeActivation(key) {
-  if (key === 'w' || key === 'п') {
+  if (key === 'w' || key === 'з') {
     event.preventDefault() // Prevent default behavior of W or П key
+    document.getElementById('writing').style.display = 'none'
+    emotionBool = false
+    // If the last pressed button-counter was P or Л, add the bolded "part:" or "субличность" prefix
+    //if (['p', 'л'].includes(lastCounterPressed)) {
+    //  textInput = `${lastCounterPressed === 'p' ? 'part:' : 'субличность:'} ${textInput}`;
+    //}
+    // Enable text input mode
+    textInputMode = true
+    document.getElementById('textInput').style.display = 'block' // Show the text input display
+    document.getElementById('textInput').focus() // Focus on the text input area
+  }
+  if (key === 'э') {
+    event.preventDefault() // Prevent default behavior of W or П key
+    emotionBool = true
     document.getElementById('writing').style.display = 'none'
 
     // If the last pressed button-counter was P or Л, add the bolded "part:" or "субличность" prefix
@@ -239,7 +253,7 @@ function handleTextInputModeActivation(key) {
 function updateTextDisplay(input) {
   const textDisplay = document.createElement('div')
   textDisplay.textContent = input
-  if (['p', 'л'].includes(lastCounterPressed)) {
+  if (emotionBool) {
     document.getElementById('subTexts').appendChild(textDisplay)
   }
   else {
@@ -349,10 +363,10 @@ function updateTimer() {
 
   // Check if more than 60 seconds have passed since the last key press, if so, increment distracted counter
   if (timeSinceLastKeyPress > 60 && !isPaused && !distractedRN) {
-    distractedCount++
+    //distractedCount++
     distractedRN = true
     // speak("Gently notice where your attention is right now. Looks like you got distracted. It's inevitable, let's get back to it.");
-    updateCounterDisplay()
+    //updateCounterDisplay()
     //lastKeyPressTime = Date.now() // Update last key press time
   }
 
@@ -437,9 +451,6 @@ function updateCounter(key) {
         thoughtCount++
         break
       case 'л':
-        partCount++
-        break
-      case 'м':
         mettaCount++
         break
       case 'ы':
@@ -472,11 +483,11 @@ function updateCounterDisplay() {
 }
 
 function updateBarChart() {
-  const counterData = [seenCount, heardCount, feelCount, thoughtCount, partCount, mettaCount, breathCount, distractedCount]
+  const counterData = [seenCount, heardCount, feelCount, thoughtCount, mettaCount]
   let labels = ['Seen', 'Heard', 'Felt', 'Thought', '(noticed) Part', '(got) Distracted']
 
   if (lang == 'ru') {
-    labels = ['Вижу', 'Слышу', 'Чувствую', 'Думаю', 'субЛичность', 'Метта', 'дЫхание', 'Отвлекся']
+    labels = ['Вижу', 'Слышу', 'Чувствую', 'Думаю','Люблю']
   }
 
   // Update the chart data
@@ -527,7 +538,7 @@ document.addEventListener('keydown', function (event) {
       updateCounter(key)
     }
   }
-  if (key === ' ') {
+  if (!textInputMode && key === ' ') {
     startPauseTimer()
   }
 })
