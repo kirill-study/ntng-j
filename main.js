@@ -124,7 +124,7 @@ function handleCounterUpdate(key) {
 
     // Show the progress bar with fade-in effect
     progressContainer.classList.add("visible");
-    //clearTimeout(ProgressBarTimeOut)
+    clearTimeout(ProgressBarTimeOut)
     // Hide the progress bar after 8 seconds
     const ProgressBarTimeOut = setTimeout(() => {
       progressContainer.style.display = "none";
@@ -581,7 +581,7 @@ function updateBarChart() {
   let labels = ['Seen', 'Heard', 'Felt', 'Thought', '(noticed) Part', '(got) Distracted']
 
   if (lang == 'ru') {
-    labels = ['Вижу', 'Слышу', 'Чувствую', 'Думаю','Люблю']
+    labels = ['👁Вижу', '👂Слышу', '🧘‍♂️Чувствую', '🧠Думаю', '❤️Люблю']
   }
 
   // Update the chart data
@@ -622,8 +622,11 @@ function updateBarChart() {
 
 document.addEventListener('keydown', function (event) {
   const key = event.key.toLowerCase()
-  const active = document.querySelector('.activeNumber');
-  if (active) active.classList.remove('activeNumber')
+  const active = document.querySelectorAll('.activeNumber');
+  if (active) {
+    active.forEach((elem) => elem.classList.remove('activeNumber'))
+  }
+
 console.log(key)
   if (lang == 'en') {
     if (!textInputMode && (key === 'h' || key === 's' || key === 'f' || key === 't' || key === 'p' || key === 'd')) {
