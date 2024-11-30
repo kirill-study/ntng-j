@@ -161,7 +161,7 @@ h1 {
 }
 #counters {
     position: fixed;
-    width: 350px;
+    width: 31%;
     bottom: -20px;
     right: 5px;
     margin-top: 20px;
@@ -235,7 +235,8 @@ h1 {
     bottom: 5px;
     left: 25px;
     text-align: left;
-    width: 265px;
+    /*width: 265px;*/
+    width: 25%;
    height: 254px;
    overflow-y: scroll;
    font-size: 15px;
@@ -267,9 +268,14 @@ h1 > span {
     position: fixed;
     color: rgb(48, 48, 48);
     bottom: 32px;
+    /*
     right: 300px;
-    text-align: left;
     width: 550px;
+    */
+
+    right: 30%;
+    width: 42%;
+    text-align: left;
    height: 227px;
    overflow-y: scroll;
 
