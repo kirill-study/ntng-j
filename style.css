@@ -52,8 +52,25 @@ font-weight: bold;
 content: '\2022'; /* Bullet character */
 margin-right: 5px;
 margin-left: 5px;
-
 }
+
+.child-wrapper {
+    display: flex;
+}
+
+.child-wrapper > .child-text {
+    padding-top: 5px;
+    padding-left: 5px;
+}
+
+
+.child-wrapper > .emoji-container {
+    padding-top: 5px;
+    padding-left: 5px;
+}
+
+/*
+
 #subTexts > div {
 counter-increment: numbers +1;
 }
@@ -69,7 +86,7 @@ counter-increment: numbers +1;
         margin-right: 5px;
         margin-left: 5px;
         }
-
+*/
 #barChartContainer > div {
 margin-top: 10px;
 font-size: 20px;

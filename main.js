@@ -162,7 +162,6 @@ function handleTextInput(key) {
     } else if (['arrowleft', 'arrowright'].includes(key)) {
       handleArrowKey(key)
     } else if (key !== 'enter' && key !== 'escape' && key !== 'shift') {
-      //updateChildElements()
       handleTextInputCharacter(key)
     } else {
       handleTextInputModeExit(key)
@@ -251,15 +250,64 @@ function handleTextInputModeActivation(key) {
     document.getElementById('textInput').focus() // Focus on the text input area
   }
 }
+function updateTextDisplay(input) {
 
 // Update the text display with the last entered text
-function updateTextDisplay(input) {
-  const textDisplay = document.createElement('div')
-  textDisplay.textContent = input
+const subTexts = document.getElementById('subTexts');
+
+  // Determine the child number for the new element
+  const childNumber = subTexts.children.length;
+
+  // Create the wrapper div for the new content
+  const wrapperDiv = document.createElement('div');
+  wrapperDiv.className = 'child-wrapper';
+
+  // Create the <kbd> element with the child number
+  const kbdElement = document.createElement('kbd');
+  kbdElement.className = 'kbc-button';
+  kbdElement.textContent = childNumber;
+  wrapperDiv.appendChild(kbdElement);
+
+  // Create the main text display div
+  const textDisplay = document.createElement('div');
+  textDisplay.textContent = input;
+  textDisplay.className = 'child-text';
+  wrapperDiv.appendChild(textDisplay);
+
+  // Create the emoji counter container
+  const emojiContainer = document.createElement('div');
+  emojiContainer.className = 'emoji-container';
+
+  // Define emojis and their counters
+  const emojis = [
+    { symbol: '🧘‍♂️', className: 'meditation-counter' },
+    { symbol: ' 🧠', className: 'mind-counter' },
+    { symbol: ' ❤️', className: 'heart-counter' },
+  ];
+
+  // Create emoji elements with counters
+  emojis.forEach((emoji, index) => {
+    const emojiSpan = document.createElement('span');
+    emojiSpan.className = `emoji-item emoji-${index}`;
+
+    const emojiText = document.createElement('span');
+    emojiText.textContent = emoji.symbol;
+    emojiSpan.appendChild(emojiText);
+
+    const counterSpan = document.createElement('span');
+    counterSpan.textContent = '0'; // Initialize counter to 0
+    counterSpan.className = `${emoji.className} counter`;
+    emojiSpan.appendChild(counterSpan);
+
+    emojiContainer.appendChild(emojiSpan);
+  });
+
+  wrapperDiv.appendChild(emojiContainer);
+
+  // Append the wrapperDiv to the appropriate parent
   if (emotionBool) {
-    document.getElementById('subTexts').appendChild(textDisplay)
-  }
-  else {
+    subTexts.appendChild(wrapperDiv);
+  } else {
   document.getElementById('texts').appendChild(textDisplay) // Append after the bar chart
   }
 }
@@ -349,9 +397,9 @@ function resumeTimer() {
 let endedOnce = false;
 let distractedRN = false
 function updateTimer() {
-  console.log(distractedRN)
+  //console.log(distractedRN)
   distractedRN = false
-  console.log(distractedRN)
+  //console.log(distractedRN)
   const elapsedTime = Date.now() - startTime
   const formattedTime = formatTime(elapsedTime)
   document.getElementById('timer').textContent = formattedTime
