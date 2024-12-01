@@ -217,7 +217,11 @@ function handleArrowKey(key) {
 
 function handleTextInputCharacter(key) {
   // Capture keyboard input in text input mode
-  textInput += event.key
+  if (key == 'meta') {}
+  else {
+    textInput += event.key
+  }
+  
   console.log(textInput) // Log the current textInput after each keypress
 }
 let emotionBool = false
