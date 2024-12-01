@@ -240,6 +240,10 @@ h1 {
    height: 254px;
    overflow-y: scroll;
    font-size: 15px;
+   ::-webkit-scrollbar {
+    display: none;
+}
+
    counter-reset: numbers 0;
 }
 
@@ -272,7 +276,10 @@ h1 > span {
     right: 300px;
     width: 550px;
     */
-
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    
     right: 30%;
     width: 42%;
     text-align: left;

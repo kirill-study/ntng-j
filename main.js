@@ -581,7 +581,7 @@ function updateBarChart() {
   let labels = ['Seen', 'Heard', 'Felt', 'Thought', '(noticed) Part', '(got) Distracted']
 
   if (lang == 'ru') {
-    labels = ['👁Вижу', '👂Слышу', '🧘‍♂️Чувствую', '🧠Думаю', '❤️Люблю']
+    labels = ['👀Вижу', '👂Слышу', '🧘‍♂️Чувствую', '🧠Думаю', '❤️Люблю']
   }
 
   // Update the chart data
