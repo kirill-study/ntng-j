@@ -454,10 +454,10 @@ function formatTime(milliseconds, shortFormat = true) {
   return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
 }
 
-function speak(message) {
+function speak(message, rate = 1.4) {
   const utterance = new SpeechSynthesisUtterance(message)
   utterance.voice = window.speechSynthesis.getVoices()[27];
-  utterance.rate = 1.3
+  utterance.rate = rate
   utterance.lang = "ru-RU";
   speechSynthesis.speak(utterance)
   
