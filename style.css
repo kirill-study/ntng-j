@@ -56,11 +56,28 @@ margin-left: 5px;
 
 .child-wrapper {
     display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin-bottom: 1px;
+}
+
+.child-wrapper.multiline {
+    margin-bottom: 7px;
+    margin-top: 7px;
+}
+
+.child-wrapper .kbc-button {
+    height: 10px
 }
 
 .child-wrapper > .child-text {
     padding-top: 5px;
     padding-left: 5px;
+    flex: 1; /* Allow the text to take up remaining space */
+    margin: 0; /* Remove default margins */
+    word-break: break-word; /* Break long words if necessary */
+    white-space: normal; /* Allow multi-line wrapping */
 }
 
 .activeNumber {
@@ -71,7 +88,6 @@ margin-left: 5px;
     padding-top: 5px;
     padding-left: 5px;
     padding-right: 4px;
-    width: 155px;
 }
 
 .counter {

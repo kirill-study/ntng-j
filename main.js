@@ -314,6 +314,21 @@ const subTexts = document.getElementById('subTexts');
   } else {
   document.getElementById('texts').appendChild(textDisplay) // Append after the bar chart
   }
+
+  document.querySelectorAll('.child-wrapper').forEach(wrapper => {
+    const textElement = wrapper.querySelector('.child-text');
+    console.log("multiline magic try started")
+    // Check if the height of the text element exceeds one line
+    const lineHeight = 24
+    const textHeight = textElement.offsetHeight;
+    console.log(parseFloat(window.getComputedStyle(textElement).lineHeight))
+    if (textHeight > lineHeight) {
+        wrapper.classList.add('multiline');
+    } else {
+        wrapper.classList.remove('multiline');
+    }
+});
+
 }
 let lastCounterPressed = '';
 let startTime
