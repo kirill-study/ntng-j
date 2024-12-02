@@ -266,10 +266,10 @@ h1 {
     position: fixed;
     color: rgb(48, 48, 48);
     bottom: 5px;
-    left: 12px;
+    left: 13px;
     text-align: left;
     /*width: 265px;*/
-    width: 25%;
+    width: 26%;
    height: 254px;
    overflow-y: scroll;
    font-size: 15px;
@@ -290,7 +290,7 @@ font-weight: bold;
 #subTexts > h1 {
     display: text;
     font-weight: bold;
-    margin-left: 9px;
+    margin-left: 10px;
 }
 
 h1 > span {
