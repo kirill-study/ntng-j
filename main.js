@@ -541,8 +541,8 @@ function updateCounter(key) {
         if (nmode != false) {
           console.log(nmode)
           //child[nmode].emoji-feel++
-          incrementCounter(+nmode,1,1)
-          nmode = false
+          //incrementCounter(+nmode,1,1)
+          //nmode = false
         }
         break
       case 'л':
@@ -551,7 +551,7 @@ function updateCounter(key) {
         if (nmode != false) {
           console.log(nmode)
           //child[nmode].emoji-feel++
-          incrementCounter(+nmode,2,1)
+          incrementCounter(+nmode,1,1)
           nmode = false
         }
         break
