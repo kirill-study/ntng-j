@@ -320,12 +320,20 @@ const subTexts = document.getElementById('subTexts');
     console.log("multiline magic try started")
     // Check if the height of the text element exceeds one line
     const lineHeight = 24
+    const lineHeight2 = 42
+
     const textHeight = textElement.offsetHeight;
-    console.log(parseFloat(window.getComputedStyle(textElement).lineHeight))
-    if (textHeight > lineHeight) {
+    console.log(textHeight)
+    if (textHeight > lineHeight2) {
+      wrapper.classList.add('multiline2');
+  }
+  else if (textHeight > lineHeight) {
         wrapper.classList.add('multiline');
-    } else {
+    }  
+    else {
         wrapper.classList.remove('multiline');
+        wrapper.classList.remove('multiline2');
+
     }
 });
 
