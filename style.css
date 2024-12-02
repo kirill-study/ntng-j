@@ -266,7 +266,7 @@ h1 {
     position: fixed;
     color: rgb(48, 48, 48);
     bottom: 5px;
-    left: 25px;
+    left: 12px;
     text-align: left;
     /*width: 265px;*/
     width: 25%;
@@ -286,6 +286,11 @@ font-weight: bold;
 #texts > h1 {
     display: text;
     font-weight: bold;
+}
+#subTexts > h1 {
+    display: text;
+    font-weight: bold;
+    margin-left: 9px;
 }
 
 h1 > span {
@@ -307,11 +312,8 @@ h1 > span {
     right: 300px;
     width: 550px;
     */
-    ::-webkit-scrollbar {
-        display: none;
-    }
     
-    right: 30%;
+    right: 31%;
     width: 42%;
     text-align: left;
    height: 227px;
