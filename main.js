@@ -285,7 +285,7 @@ const subTexts = document.getElementById('subTexts');
   // Define emojis and their counters
   const emojis = [
     { symbol: '🧘‍♂️', className: 'meditation-counter' },
-    { symbol: ' 🧠', className: 'mind-counter' },
+    //{ symbol: ' 🧠', className: 'mind-counter' },
     { symbol: ' ❤️', className: 'heart-counter' },
   ];
 
@@ -456,7 +456,11 @@ function formatTime(milliseconds, shortFormat = true) {
 
 function speak(message) {
   const utterance = new SpeechSynthesisUtterance(message)
+  utterance.voice = window.speechSynthesis.getVoices()[27];
+  utterance.rate = 1.3
+  utterance.lang = "ru-RU";
   speechSynthesis.speak(utterance)
+  
 }
 
 // Function to add a number to the counter of a specific child and specific emoji
@@ -556,7 +560,7 @@ function updateCounter(key) {
         break
       case 'о':
         distractedCount++
-        // speak("Got distracted? You are doing great");
+        speak("Молодец, что заметил, что отвлекся! Умница. УлыбнИсь и продолжай медитировать");
         //speak('aaaaaa')
         break
       default:
