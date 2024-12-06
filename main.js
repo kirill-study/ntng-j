@@ -234,7 +234,7 @@ function handleTextInputCharacter(key) {
 }
 let emotionBool = false
 function handleTextInputModeActivation(key) {
-  if (key === 'w' || key === 'з') {
+  if (key === 'w' || key === 'р') {
     event.preventDefault() // Prevent default behavior of W or П key
     document.getElementById('writing').style.display = 'none'
     emotionBool = false
@@ -247,7 +247,7 @@ function handleTextInputModeActivation(key) {
     document.getElementById('textInput').style.display = 'block' // Show the text input display
     document.getElementById('textInput').focus() // Focus on the text input area
   }
-  if (key === 'э') {
+  if (key === 'п') {
     event.preventDefault() // Prevent default behavior of W or П key
     emotionBool = true
     document.getElementById('writing').style.display = 'none'
@@ -570,17 +570,30 @@ function updateCounter(key) {
 }
 
 function updateCounterDisplay() {
+
+    // Debug: Log all counter elements
+    console.log('seenCounter exists:', !!document.getElementById('seenCounter'));
+    console.log('thoughtCounter exists:', !!document.getElementById('thoughtCounter'));
+    
   // First column counters
   document.getElementById('seenCounter').textContent = seen1Count
   document.getElementById('feltCounter').textContent = felt1Count
   document.getElementById('thoughtCounter').textContent = thought1Count
   document.getElementById('lovedCounter').textContent = loved1Count
-
+  console.log(thought1Count)
   // Second column counters
   document.getElementById('seenCounter2').textContent = seen2Count
   document.getElementById('feltCounter2').textContent = felt2Count
   document.getElementById('thoughtCounter2').textContent = thought2Count
   document.getElementById('lovedCounter2').textContent = loved2Count
+
+  // Debug: Log counter values
+  console.log('Counter values:', {
+    seen1: seen1Count,
+    thought1: thought1Count,
+    seen2: seen2Count,
+    thought2: thought2Count
+  })
 }
 
 function updateBarChart() {
