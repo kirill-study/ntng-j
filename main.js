@@ -6,8 +6,8 @@ const translations = {
     subTimer: 'Time since last keypress:',
     heard: 'Heard (h):',
     seen: 'Seen (s):',
-    feel: 'Feel 1 (f):',
-    feel2: 'Feel 2 (t):',
+    feel: 'Feel (f):',
+    thoughts: 'Thoughts (t):',
     part: 'Part (p):',
     writing: 'Press "w" to type a thought or part description in the middle of meditation',
     distracted: 'Distracted (d):',
@@ -23,8 +23,8 @@ const translations = {
     subTimer: 'C последнего нажатия клавиши:',
     heard: 'Слышу (h):',
     seen: 'Вижу (s):',
-    feel: 'Чувствую 1 (ч):',
-    feel2: 'Чувствую 2 (д):',
+    feel: 'Чувствую (f):',
+    thoughts: 'Думаю (t):',
     writing: 'Нажмите П (писать), чтобы записать мысль или название субличости',
     part: 'Часть (p):',
     distracted: 'Отвлеченный (d):',
@@ -144,7 +144,7 @@ function handleCounterUpdate(key) {
       updateCounter(key)
     }
   } else if (lang == 'ru') {
-    if (!textInputMode && 'квасшлоь'.includes(key)) {
+    if (!textInputMode && (key === 'с' || key === 'в' || key === 'ч' || key === 'д' || key === 'л' || key === 'о' || key === 'м' || key === 'ы' )) {
       updateCounter(key)
     }
   }
@@ -234,7 +234,7 @@ function handleTextInputCharacter(key) {
 }
 let emotionBool = false
 function handleTextInputModeActivation(key) {
-  if (key === 'w' || key === 'р') {
+  if (key === 'w' || key === 'з') {
     event.preventDefault() // Prevent default behavior of W or П key
     document.getElementById('writing').style.display = 'none'
     emotionBool = false
@@ -247,7 +247,7 @@ function handleTextInputModeActivation(key) {
     document.getElementById('textInput').style.display = 'block' // Show the text input display
     document.getElementById('textInput').focus() // Focus on the text input area
   }
-  if (key === 'п') {
+  if (key === 'э') {
     event.preventDefault() // Prevent default behavior of W or П key
     emotionBool = true
     document.getElementById('writing').style.display = 'none'
@@ -353,7 +353,7 @@ let pausedTime = 0
 let heardCount = 0
 let seenCount = 0
 let feelCount = 0
-let feel2Count = 0
+let thoughtCount = 0
 let partCount = 0
 let nmode = false;
 
@@ -511,124 +511,86 @@ function incrementCounter(childIndex, emojiIndex, numberToAdd) {
   }
 }
 
+// Counter variables
+let seen1Count = 0
+let felt1Count = 0
+let thought1Count = 0
+let loved1Count = 0
+let seen2Count = 0
+let felt2Count = 0
+let thought2Count = 0
+let loved2Count = 0
+
 function updateCounter(key) {
   const currentTime = Date.now()
-  const timeSinceLastKeyPress = (currentTime - lastKeyPressTime) / 1000 // Calculate time since last key press in seconds
+  const timeSinceLastKeyPress = (currentTime - lastKeyPressTime) / 1000
   if (timerStarted && timeSinceLastKeyPress > longestTimeBetweenPresses) {
     longestTimeBetweenPresses = timeSinceLastKeyPress
     document.getElementById('longestTime').textContent = `Longest Time Between Presses: ${longestTimeBetweenPresses.toFixed(2)} seconds`
   }
   lastKeyPressTime = currentTime
 
-  const subTexts = document.getElementById('subTexts');
-
-  
-  if (lang == 'en') {
+  if (lang == 'ru') {
     switch (key) {
-      case 'h':
-        heardCount++
+      case 'к':
+        seen1Count++
         break
-      case 's':
-        seenCount++
+      case 'в':
+        felt1Count++
         break
-      case 'f':
-        feelCount++
+      case 'а':
+        thought1Count++
         break
-      case 't':
-        feel2Count++
-        break
-      case 'p':
-        partCount++
-        break
-      case 'd':
-        distractedCount++
-        // speak("Got distracted? You are doing great");
-        //speak('aaaaaa')
-        break
-      default:
-        break
-    }
-  } else if (lang == 'ru') {
-    switch (key) {
       case 'с':
         loved1Count++
         break
-      case 'в':
-        feel1Count++
-        break
-      case 'ч':
-        //feelCount++
-        console.log(nmode)
-        if (nmode != false) {
-          console.log(nmode)
-          //child[nmode].emoji-feel++
-          incrementCounter(+nmode,0,1)
-          nmode = false
-        }
-        break
-      case 'д':
-        feel2Count++
-
-        if (nmode != false) {
-          console.log(nmode)
-          //child[nmode].emoji-feel++
-          incrementCounter(+nmode,1,1)
-          nmode = false
-        }
+      case 'ш':
+        seen2Count++
         break
       case 'л':
-        mettaCount++
-
-        if (nmode != false) {
-          console.log(nmode)
-          //child[nmode].emoji-feel++
-          incrementCounter(+nmode,1,1)
-          nmode = false
-        }
-        break
-      case 'ы':
-        breathCount++
+        felt2Count++
         break
       case 'о':
-        distractedCount++
-        //speak("Молодец, что заметил, что отвлекся! Умница. УлыбнИсь и продолжай медитировать");
-        //speak('aaaaaa')
+        thought2Count++
+        break
+      case 'ь':
+        loved2Count++
         break
       default:
         break
     }
   }
 
-  if (!timerStarted && (heardCount > 0 || seenCount > 0 || feelCount > 0 || feel2Count > 0 || partCount > 0 || distractedCount > 0 || mettaCount > 0 || breathCount > 0)) {
+  if (!timerStarted && (seen1Count > 0 || felt1Count > 0 || thought1Count > 0 || loved1Count > 0 || 
+                        seen2Count > 0 || felt2Count > 0 || thought2Count > 0 || loved2Count > 0)) {
     startTimer()
   }
-  updateBarChart()
   updateCounterDisplay()
+  updateBarChart()
 }
 
 function updateCounterDisplay() {
-}
-let seen1Count
-let felt1Count
-let thought1Count
-let loved1Count
-let seen2Count
-let felt2Count
-let thought2Count
-let loved2Count
-function updateBarChart() {
-  const counterData = [
-    seen1Count, felt1Count, thought1Count, loved1Count,
-    seen2Count, felt2Count, thought2Count, loved2Count
-  ]
-  let labels = ['�1', '🧘‍♂️1', '🧠1', '❤️1', '👀2', '🧘‍♂️2', '🧠2', '❤️2']
+  // First column counters
+  document.getElementById('seenCounter').textContent = seen1Count
+  document.getElementById('feltCounter').textContent = felt1Count
+  document.getElementById('thoughtCounter').textContent = thought1Count
+  document.getElementById('lovedCounter').textContent = loved1Count
 
-  document.getElementById('feltCounter2').textContent = counterData[5]
-  document.getElementById('seenCounter').textContent = seenCount
-  document.getElementById('feltCounter').textContent = feelCount
-  document.getElementById('seenCounter2').textContent = counterData[5]
-  document.getElementById('thoughtCounter').textContent = partCount
-  document.getElementById('thoughtCounter2').textContent = distractedCount
+  // Second column counters
+  document.getElementById('seenCounter2').textContent = seen2Count
+  document.getElementById('feltCounter2').textContent = felt2Count
+  document.getElementById('thoughtCounter2').textContent = thought2Count
+  document.getElementById('lovedCounter2').textContent = loved2Count
+}
+
+function updateBarChart() {
+  const counterData = [seenCount, heardCount, feelCount, thoughtCount, mettaCount]
+  let labels = ['Seen', 'Heard', 'Felt', 'Thought', '(noticed) Part', '(got) Distracted']
+
+  if (lang == 'ru') {
+    labels = ['👀Вижу', '👂Слышу', '🧘‍♂️Чувствую', '🧠Думаю', '❤️Люблю']
+  }
+
   // Update the chart data
   if (window.myBar) {
     window.myBar.data.labels = labels // Update the labels
@@ -667,30 +629,17 @@ function updateBarChart() {
 
 document.addEventListener('keydown', function (event) {
   const key = event.key.toLowerCase()
-  const active = document.querySelectorAll('.activeNumber');
+  const active = document.querySelectorAll('.activeNumber')
   if (active) {
     active.forEach((elem) => elem.classList.remove('activeNumber'))
   }
 
-console.log(key)
-  if (lang == 'en') {
-    if (!textInputMode && (key === 'h' || key === 's' || key === 'f' || key === 't' || key === 'p' || key === 'd')) {
+  if (lang == 'ru') {
+    if (!textInputMode && 'квасшлоь'.includes(key)) {
       updateCounter(key)
     }
-  } else if (lang == 'ru') {
-    if (!textInputMode && (key === 'с' || key === 'в' || key === 'ч' || key === 'д' || key === 'л' || key === 'м' || key === 'ы' || key === 'о')) {
-      updateCounter(key)
-    }
-  
-    if (!textInputMode && (key >= 1 && key <= 9)) {
-      nmode = key
-      let childtext = document.querySelector(`#subTexts .child-wrapper:nth-child(${+nmode + 1}) .child-text`)
-      let emojicont = document.querySelector(`#subTexts .child-wrapper:nth-child(${+nmode + 1}) .emoji-container`)
-      childtext.classList.add("activeNumber")
-      emojicont.classList.add("activeNumber")
-    }
-    
   }
+
   if (!textInputMode && key === ' ') {
     startPauseTimer()
   }
