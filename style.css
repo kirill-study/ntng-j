@@ -54,6 +54,12 @@ margin-right: 5px;
 margin-left: 5px;
 }
 
+#subTexts > div:before {
+    content: '\2022'; /* Bullet character */
+    margin-right: 5px;
+    margin-left: 5px;
+    }
+
 .child-wrapper {
     display: flex;
   flex-direction: row;
@@ -83,6 +89,10 @@ margin-left: 5px;
     margin: 0; /* Remove default margins */
     word-break: break-word; /* Break long words if necessary */
     white-space: normal; /* Allow multi-line wrapping */
+}
+
+#texts > .child-text {
+    margin-bottom: 5px;
 }
 
 .activeNumber {
@@ -166,7 +176,7 @@ h1 {
 }
 #timer {
     position: fixed;
-    bottom: 132px;
+    bottom: 12px;
     right: 98px;
     font-family: 'Iosevka', 'Courier New', Courier, monospace;
     font-size: 32px;
@@ -175,9 +185,9 @@ h1 {
 }
 #subCont {
     position: fixed;
-    bottom: 132px;
-    right: 38px;
-    font-size: 17px;
+    bottom: 12px;
+    right: 42px;
+    font-size: 16px;
     font-weight: bold;
     color:#1e1e1e
 
@@ -192,6 +202,44 @@ h1 {
     color:#1e1e1e
 
 }
+#subTextsWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+#textsWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+#bothTextsWrapper {
+    display: flex;
+}
+#subTextsCounters {
+    display: flex;
+    height: 10px;
+    margin-top: 100px;
+    align-self: center;
+}
+
+#textsCounters {
+    display: flex;
+    height: 10px;
+    margin-top: 100px;
+    align-self: center;
+}
+
+.counter-label {
+    font-size: 30px;
+}
+
+.counter-wrapper > span {
+    font-size: 17px;
+    margin-right: 5px;
+    margin-left: -6px;
+}
+
 #counters {
     position: fixed;
     width: 20%;
@@ -201,6 +249,7 @@ h1 {
     justify-content: center;
 }
 #barChartContainer {
+    display: none;
     margin-top: 20px;
     text-align: center;
     height: 20%;
@@ -263,14 +312,14 @@ h1 {
     color: rgb(103, 103, 103);
 }
 #subTexts{
-    position: fixed;
+
     color: rgb(48, 48, 48);
     bottom: 5px;
     left: 13px;
     text-align: left;
     /*width: 265px;*/
-    width: 34%;
-   height: 604px;
+    
+   margin-left: 100px;
    overflow-y: scroll;
    font-size: 15px;
 
@@ -305,19 +354,16 @@ h1 > span {
 }
 
 #texts{
-    position: fixed;
+
     color: rgb(48, 48, 48);
-    bottom: 32px;
-    /*
-    right: 300px;
-    width: 550px;
-    */
-    
-    right: 10%;
-    width: 42%;
+    bottom: 5px;
+    left: 13px;
     text-align: left;
-   height: 577px;
+    /*width: 265px;*/
+    
+   margin-left: 100px;
    overflow-y: scroll;
+   font-size: 15px;
 
 }
 .text-display {

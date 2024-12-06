@@ -217,7 +217,7 @@ function handleArrowKey(key) {
 
 function handleTextInputCharacter(key) {
   // Capture keyboard input in text input mode
-  if (key == 'meta') {}
+  if (key == 'meta' || key == 'alt' || key == 'control') {}
   else {
     textInput += event.key
   }
@@ -270,7 +270,7 @@ const subTexts = document.getElementById('subTexts');
   const kbdElement = document.createElement('kbd');
   kbdElement.className = 'kbc-button';
   kbdElement.textContent = childNumber;
-  wrapperDiv.appendChild(kbdElement);
+  //wrapperDiv.appendChild(kbdElement);
 
   // Create the main text display div
   const textDisplay = document.createElement('div');
@@ -306,7 +306,7 @@ const subTexts = document.getElementById('subTexts');
     emojiContainer.appendChild(emojiSpan);
   });
 
-  wrapperDiv.appendChild(emojiContainer);
+  //wrapperDiv.appendChild(emojiContainer);
 
   // Append the wrapperDiv to the appropriate parent
   if (emotionBool) {
