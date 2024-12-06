@@ -6,8 +6,8 @@ const translations = {
     subTimer: 'Time since last keypress:',
     heard: 'Heard (h):',
     seen: 'Seen (s):',
-    feel: 'Feel (f):',
-    thoughts: 'Thoughts (t):',
+    feel: 'Feel 1 (f):',
+    feel2: 'Feel 2 (t):',
     part: 'Part (p):',
     writing: 'Press "w" to type a thought or part description in the middle of meditation',
     distracted: 'Distracted (d):',
@@ -23,16 +23,24 @@ const translations = {
     subTimer: 'C последнего нажатия клавиши:',
     heard: 'Слышу (h):',
     seen: 'Вижу (s):',
-    feel: 'Чувствую (f):',
-    thoughts: 'Думаю (t):',
-    writing: 'Нажмите П (писать), чтобы записать мысль или название субличности',
+    feel: 'Чувствую 1 (ч):',
+    feel2: 'Чувствую 2 (д):',
+    writing: 'Нажмите П (писать), чтобы записать мысль или название субличости',
     part: 'Часть (p):',
     distracted: 'Отвлеченный (d):',
     longestTime: 'Самый долгий интервал между нажатиями: 0 секунд',
     startButton: 'Начать таймер',
     endButton: 'Закончить сеанс',
     instruction: 'Вижу-Слышу-Чувствую-Думаю-субЛичность',
-    keypressInstruction: 'Нажимайте В (вижу) или Ч (чувствую) и т.п., когда замечаете, что внимание сейчас там'
+    keypressInstruction: 'Нажимайте В (вижу) или Ч (чувствую) и т.п., когда замечаете, что внимание сейчас там',
+    seen1: 'Вижу1 (к):',
+    felt1: 'Чувствую1 (в):',
+    thought1: 'Думаю1 (а):',
+    loved1: 'Люблю1 (с):',
+    seen2: 'Вижу2 (ш):',
+    felt2: 'Чувствую2 (л):',
+    thought2: 'Думаю2 (о):',
+    loved2: 'Люблю2 (ь):'
   }
 }
 let lang = 'ru'
@@ -136,7 +144,7 @@ function handleCounterUpdate(key) {
       updateCounter(key)
     }
   } else if (lang == 'ru') {
-    if (!textInputMode && (key === 'с' || key === 'в' || key === 'ч' || key === 'д' || key === 'л' || key === 'о' || key === 'м' || key === 'ы' )) {
+    if (!textInputMode && 'квасшлоь'.includes(key)) {
       updateCounter(key)
     }
   }
@@ -226,7 +234,7 @@ function handleTextInputCharacter(key) {
 }
 let emotionBool = false
 function handleTextInputModeActivation(key) {
-  if (key === 'w' || key === 'з') {
+  if (key === 'w' || key === 'р') {
     event.preventDefault() // Prevent default behavior of W or П key
     document.getElementById('writing').style.display = 'none'
     emotionBool = false
@@ -239,7 +247,7 @@ function handleTextInputModeActivation(key) {
     document.getElementById('textInput').style.display = 'block' // Show the text input display
     document.getElementById('textInput').focus() // Focus on the text input area
   }
-  if (key === 'э') {
+  if (key === 'п') {
     event.preventDefault() // Prevent default behavior of W or П key
     emotionBool = true
     document.getElementById('writing').style.display = 'none'
@@ -345,7 +353,7 @@ let pausedTime = 0
 let heardCount = 0
 let seenCount = 0
 let feelCount = 0
-let thoughtCount = 0
+let feel2Count = 0
 let partCount = 0
 let nmode = false;
 
@@ -527,7 +535,7 @@ function updateCounter(key) {
         feelCount++
         break
       case 't':
-        thoughtCount++
+        feel2Count++
         break
       case 'p':
         partCount++
@@ -543,13 +551,13 @@ function updateCounter(key) {
   } else if (lang == 'ru') {
     switch (key) {
       case 'с':
-        heardCount++
+        loved1Count++
         break
       case 'в':
-        seenCount++
+        feel1Count++
         break
       case 'ч':
-        feelCount++
+        //feelCount++
         console.log(nmode)
         if (nmode != false) {
           console.log(nmode)
@@ -559,13 +567,13 @@ function updateCounter(key) {
         }
         break
       case 'д':
-        thoughtCount++
+        feel2Count++
 
         if (nmode != false) {
           console.log(nmode)
           //child[nmode].emoji-feel++
-          //incrementCounter(+nmode,1,1)
-          //nmode = false
+          incrementCounter(+nmode,1,1)
+          nmode = false
         }
         break
       case 'л':
@@ -583,7 +591,7 @@ function updateCounter(key) {
         break
       case 'о':
         distractedCount++
-        speak("Молодец, что заметил, что отвлекся! Умница. УлыбнИсь и продолжай медитировать");
+        //speak("Молодец, что заметил, что отвлекся! Умница. УлыбнИсь и продолжай медитировать");
         //speak('aaaaaa')
         break
       default:
@@ -591,7 +599,7 @@ function updateCounter(key) {
     }
   }
 
-  if (!timerStarted && (heardCount > 0 || seenCount > 0 || feelCount > 0 || thoughtCount > 0 || partCount > 0 || distractedCount > 0 || mettaCount > 0 || breathCount > 0)) {
+  if (!timerStarted && (heardCount > 0 || seenCount > 0 || feelCount > 0 || feel2Count > 0 || partCount > 0 || distractedCount > 0 || mettaCount > 0 || breathCount > 0)) {
     startTimer()
   }
   updateBarChart()
@@ -599,22 +607,28 @@ function updateCounter(key) {
 }
 
 function updateCounterDisplay() {
-  document.getElementById('heardCounter').textContent = heardCount
-  document.getElementById('seenCounter').textContent = seenCount
-  document.getElementById('feelCounter').textContent = feelCount
-  document.getElementById('thoughtCounter').textContent = thoughtCount
-  document.getElementById('partCounter').textContent = partCount
-  document.getElementById('distractedCounter').textContent = distractedCount
 }
-
+let seen1Count
+let felt1Count
+let thought1Count
+let loved1Count
+let seen2Count
+let felt2Count
+let thought2Count
+let loved2Count
 function updateBarChart() {
-  const counterData = [seenCount, heardCount, feelCount, thoughtCount, mettaCount]
-  let labels = ['Seen', 'Heard', 'Felt', 'Thought', '(noticed) Part', '(got) Distracted']
+  const counterData = [
+    seen1Count, felt1Count, thought1Count, loved1Count,
+    seen2Count, felt2Count, thought2Count, loved2Count
+  ]
+  let labels = ['�1', '🧘‍♂️1', '🧠1', '❤️1', '👀2', '🧘‍♂️2', '🧠2', '❤️2']
 
-  if (lang == 'ru') {
-    labels = ['👀Вижу', '👂Слышу', '🧘‍♂️Чувствую', '🧠Думаю', '❤️Люблю']
-  }
-
+  document.getElementById('feltCounter2').textContent = counterData[5]
+  document.getElementById('seenCounter').textContent = seenCount
+  document.getElementById('feltCounter').textContent = feelCount
+  document.getElementById('seenCounter2').textContent = counterData[5]
+  document.getElementById('thoughtCounter').textContent = partCount
+  document.getElementById('thoughtCounter2').textContent = distractedCount
   // Update the chart data
   if (window.myBar) {
     window.myBar.data.labels = labels // Update the labels
