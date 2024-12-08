@@ -459,3 +459,22 @@ h1 > span {
     background-color: #295c2b;
     transition: width linear;
 }
+
+.editable-heading {
+    cursor: pointer;
+}
+
+.editable-heading:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.heading-input {
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid #1e1e1e;
+    outline: none;
+    width: 200px;
+    font-family: inherit;
+}
