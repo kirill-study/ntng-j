@@ -105,12 +105,79 @@ let textInputMode = false // Variable to track whether the user is in text input
 let textInput = '' // Variable to store the text input by the user
 let lastInput = '' // Variable to store the last entered text
 
+let isEditingHeading = false; // Add this global variable at the top with other state variables
+
+function initializeEditableHeadings() {
+    document.querySelectorAll('.editable-heading').forEach(heading => {
+        heading.addEventListener('click', function(e) {
+            // Don't trigger if clicking on the kbd element or if in text input mode
+            if (e.target.tagName === 'KBD' || e.target.tagName === 'SPAN' || textInputMode) {
+                return;
+            }
+
+            isEditingHeading = true; // Set editing state
+            const headingText = this.childNodes[0].textContent.trim();
+            const kbdSpan = this.querySelector('span');
+            
+            // Create input element
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'heading-input';
+            
+            // Replace heading text with input
+            this.innerHTML = '';
+            this.appendChild(input);
+            this.appendChild(kbdSpan);
+            input.focus();
+
+            // Handle input blur and enter key
+            const finishEditing = function() {
+                const newText = this.value.trim();
+                const heading = this.parentElement;
+                if (newText) {
+                    heading.innerHTML = newText + ' ';
+                } else {
+                    heading.innerHTML = headingText + ' '; // Restore original text if empty
+                }
+                heading.appendChild(kbdSpan);
+                isEditingHeading = false; // Reset editing state
+            };
+
+            // Handle escape key to cancel editing
+            const cancelEditing = function() {
+                const heading = this.parentElement;
+                heading.innerHTML = headingText + ' ';
+                heading.appendChild(kbdSpan);
+                isEditingHeading = false; // Reset editing state
+            };
+
+            input.addEventListener('blur', finishEditing);
+            input.addEventListener('keydown', function(e) {
+                e.stopPropagation(); // Prevent event bubbling
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    finishEditing.call(this);
+                } else if (e.key === 'Escape') {
+                    e.preventDefault();
+                    cancelEditing.call(this);
+                }
+            });
+        });
+    });
+}
+
+// Call initialization immediately and after DOM content loaded
+initializeEditableHeadings();
+document.addEventListener('DOMContentLoaded', initializeEditableHeadings);
+
+// Modify your existing keydown event handler
 document.addEventListener('keydown', function (event) {
-  const key = event.key.toLowerCase()
-  handleCounterUpdate(key)
-  //handleStartPause(key)
-  handleTextInput(key)
-})
+    if (isEditingHeading) return; // Skip all keyboard handling if editing heading
+    
+    const key = event.key.toLowerCase()
+    handleCounterUpdate(key)
+    handleTextInput(key)
+});
 
 function handleCounterUpdate(key) {
   // Store the last pressed button if user is not in text input mode and it's one of the counters
@@ -648,7 +715,7 @@ document.addEventListener('keydown', function (event) {
   }
 
   if (lang == 'ru') {
-    if (!textInputMode && 'квасшл��ь'.includes(key)) {
+    if (!textInputMode && 'квасшлоь'.includes(key)) {
       updateCounter(key)
     }
   }
@@ -663,63 +730,3 @@ document.getElementById('endButton').addEventListener('click', endSession)
 window.onload = function () {
   updateBarChart()
 }
-
-function initializeEditableHeadings() {
-    document.querySelectorAll('.editable-heading').forEach(heading => {
-        heading.addEventListener('click', function(e) {
-            // Don't trigger if clicking on the kbd element or if in text input mode
-            if (e.target.tagName === 'KBD' || e.target.tagName === 'SPAN' || textInputMode) {
-                return;
-            }
-
-            const headingText = this.childNodes[0].textContent.trim();
-            const kbdSpan = this.querySelector('span');
-            
-            // Create input element
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.className = 'heading-input';
-            
-            // Replace heading text with input
-            this.innerHTML = '';
-            this.appendChild(input);
-            this.appendChild(kbdSpan);
-            input.focus();
-
-            // Handle input blur and enter key
-            const finishEditing = function() {
-                const newText = this.value.trim();
-                const heading = this.parentElement;
-                if (newText) {
-                    heading.innerHTML = newText + ' ';
-                } else {
-                    heading.innerHTML = headingText + ' '; // Restore original text if empty
-                }
-                heading.appendChild(kbdSpan);
-            };
-
-            // Handle escape key to cancel editing
-            const cancelEditing = function() {
-                const heading = this.parentElement;
-                heading.innerHTML = headingText + ' ';
-                heading.appendChild(kbdSpan);
-            };
-
-            input.addEventListener('blur', finishEditing);
-            input.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    finishEditing.call(this);
-                } else if (e.key === 'Escape') {
-                    e.preventDefault();
-                    cancelEditing.call(this);
-                }
-            });
-        });
-    });
-}
-
-// Call this function after the DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    initializeEditableHeadings();
-});
