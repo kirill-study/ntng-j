@@ -211,7 +211,7 @@ function handleCounterUpdate(key) {
       updateCounter(key)
     }
   } else if (lang == 'ru') {
-    if (!textInputMode && (key === 'с' || key === 'в' || key === 'ч' || key === 'д' || key === 'л' || key === 'о' || key === 'м' || key === 'ы' )) {
+    if (!textInputMode && !isEditingHeading && 'квасшлоь'.includes(key)) {
       updateCounter(key)
     }
   }
